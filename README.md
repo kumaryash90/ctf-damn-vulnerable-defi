@@ -1,3 +1,22 @@
+# ctf-damn-vulnerable-defi --- my solutions
+
+### solved
+1	Unstoppable
+2	Naive receiver
+3	Truster
+
+### remaining
+4	Side entrance
+5	The rewarder
+6	Selfie
+7	Compromised
+8	Puppet
+9	Puppet v2
+10	Free rider
+11	Backdoor
+12	Climber
+
+--------------------------
 ![](cover.png)
 
 **A set of challenges to hack implementations of DeFi in Ethereum.**
