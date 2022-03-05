@@ -1,4 +1,4 @@
-# ctf-damn-vulnerable-defi --- my solutions
+## ctf-damn-vulnerable-defi -- my solutions
 
 ### solved
 1. Unstoppable
@@ -6,15 +6,15 @@
 3. Truster
 
 ### remaining
-- Side entrance
-- The rewarder
-- Selfie
-7	Compromised
-8	Puppet
-9	Puppet v2
-10	Free rider
-11	Backdoor
-12	Climber
+4. Side entrance
+5. The rewarder
+6. Selfie
+7. Compromised
+8. Puppet
+9. Puppet v2
+10. Free rider
+11. Backdoor
+12. Climber
 
 --------------------------
 ![](cover.png)
