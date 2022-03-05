@@ -1,6 +1,6 @@
 ## ctf-damn-vulnerable-defi -- my solutions
 
-#### solved
+#### completed
 1. Unstoppable
 2. Naive receiver
 3. Truster
