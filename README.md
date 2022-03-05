@@ -1,11 +1,11 @@
 ## ctf-damn-vulnerable-defi -- my solutions
 
-### solved
+#### solved
 1. Unstoppable
 2. Naive receiver
 3. Truster
 
-### remaining
+#### remaining
 4. Side entrance
 5. The rewarder
 6. Selfie
