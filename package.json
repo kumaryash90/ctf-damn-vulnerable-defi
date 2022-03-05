@@ -7,9 +7,9 @@
     "url": "https://github.com/tinchoabbate/damn-vulnerable-defi.git"
   },
   "scripts": {
-    "unstoppable": "yarn hardhat test test/unstoppable/unstoppable.challenge.js",
-    "truster": "yarn hardhat test test/truster/truster.challenge.js",
-    "naive-receiver": "yarn hardhat test test/naive-receiver/naive-receiver.challenge.js",
+    "unstoppable": "npx hardhat test test/unstoppable/unstoppable.challenge.js",
+    "truster": "npx hardhat test test/truster/truster.challenge.js",
+    "naive-receiver": "npx hardhat test test/naive-receiver/naive-receiver.challenge.js",
     "side-entrance": "yarn hardhat test test/side-entrance/side-entrance.challenge.js",
     "the-rewarder": "yarn hardhat test test/the-rewarder/the-rewarder.challenge.js",
     "selfie": "yarn hardhat test test/selfie/selfie.challenge.js",
@@ -32,7 +32,7 @@
     "chai": "4.3.4",
     "ethereum-waffle": "3.4.0",
     "ethers": "5.4.7",
-    "hardhat": "2.6.4",
+    "hardhat": "^2.6.4",
     "hardhat-dependency-compiler": "1.1.1"
   }
 }
