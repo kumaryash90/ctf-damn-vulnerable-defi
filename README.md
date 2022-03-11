@@ -1,4 +1,4 @@
-## ctf-damn-vulnerable-defi -- my solutions
+## ctf-damn-vulnerable-defi
 
 #### completed
 1. Unstoppable
