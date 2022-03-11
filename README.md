@@ -4,9 +4,9 @@
 1. Unstoppable
 2. Naive receiver
 3. Truster
+4. Side entrance
 
 #### remaining
-4. Side entrance
 5. The rewarder
 6. Selfie
 7. Compromised
