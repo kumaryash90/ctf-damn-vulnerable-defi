@@ -8,11 +8,11 @@
 5. The rewarder
 6. Selfie
 7. Compromised
-
-#### remaining
 8. Puppet
 9. Puppet v2
 10. Free rider
+
+#### remaining
 11. Backdoor
 12. Climber
 
