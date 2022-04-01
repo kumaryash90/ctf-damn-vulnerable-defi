@@ -100,7 +100,7 @@ contract FreeRiderChallenge {
         weth.withdraw(amount);
         marketplace.buyMany{value: amount}(tokenIds); // buy nfts from marketplace
 
-        // lines 105 - 116: clearing out the remaining funds from marketplace contract
+        // lines 104 - 115: clearing out the remaining funds from marketplace contract
         uint256[] memory tokenIdOffer = new uint256[](2);
         uint256[] memory tokenPricesOffer = new uint256[](2);
 
